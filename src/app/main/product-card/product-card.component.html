@@ -1,0 +1,15 @@
+
+<div *ngIf="product">
+    <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-[400px] overflow-hidden">
+        <a href="#" class="h-[300px]">
+            <img class="p-3 rounded-t-lg max-h-[300px] mx-auto" src="{{product.photos[0].url}}" alt="product image" />
+        </a>
+        <div class="w-fit ml-5">
+            <h5 class="text-3xl text-lime-50 font-semibold tracking-tight text-gray-900 dark:text-white">{{product.title }}</h5>
+            <span class="text-xl font-bold text-red-500 bg-red-500:text-white">{{product.price}} DT</span>
+            
+            
+        </div>
+    </div>
+</div> 
+

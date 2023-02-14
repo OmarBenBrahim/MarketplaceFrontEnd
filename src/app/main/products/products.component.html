@@ -1,0 +1,12 @@
+<div class="w-full grid grid-cols-12 gap-4 mt-2">
+    <div class="lg:col-span-3 md:col-span-12 col-span-12">
+       <app-filter></app-filter>
+    </div>
+    <div class="lg:col-span-9 md:col-span-12 col-span-12 ">
+        <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4">
+            <div *ngFor="let product of products">
+                <app-product-card [product]="product"></app-product-card>
+            </div>
+        </div>
+    </div>
+  </div>
