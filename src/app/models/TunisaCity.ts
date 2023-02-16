@@ -1,0 +1,28 @@
+export class CityList {
+    TunisiaCity = [
+        "Nabeul",
+        "Tunis",
+        "Sfax",
+        "Bizerte",
+        "Manouba",
+        "Beja",
+        "Ben Arous",
+        "Gabes",
+        "Gafsa",
+        "Jendouba",
+        "Kairouan",
+        "Kasserine",
+        "Kebili",
+        "Le Kef",
+        "Medenine",
+        "Mahdia",
+        "Tataouine",
+        "Tozeur",
+        "Zaghouan",
+        "Monastir",
+        "Sidi Bouzid",
+        "Siliana",
+        "Sousse",
+        "Ariana",
+    ];
+}

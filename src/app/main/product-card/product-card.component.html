@@ -1,14 +1,18 @@
 
 <div *ngIf="product">
-    <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-[400px] overflow-hidden">
+    <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-100 dark:border-gray-100 h-[400px] overflow-hidden relative">
         <a href="#" class="h-[300px]">
-            <img class="p-3 rounded-t-lg max-h-[300px] mx-auto" src="{{product.photos[0].url}}" alt="product image" />
+            <div *ngIf="product.photos[0]">
+                <img class="p-3 rounded-t-lg max-h-[300px] mx-auto" src="{{product.photos[0].url}}" alt="product image" />
+            </div>
+            <div *ngIf="!product.photos[0]">
+                <img class="p-3 rounded-t-lg max-h-[300px] mx-auto" src="{{ './assets/product.jpg'}}" alt="product image" />
+            </div>
         </a>
-        <div class="w-fit ml-5">
-            <h5 class="text-3xl text-lime-50 font-semibold tracking-tight text-gray-900 dark:text-white">{{product.title }}</h5>
+        
+        <div class="w-fit ml-5 absolute bottom-0 mb-4">
             <span class="text-xl font-bold text-red-500 bg-red-500:text-white">{{product.price}} DT</span>
-            
-            
+            <h5 class="text-3xl text-lime-50 font-semibold tracking-tight text-gray-900 dark:text-black">{{product.title }}</h5>
         </div>
     </div>
 </div> 

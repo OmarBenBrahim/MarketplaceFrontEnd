@@ -15,4 +15,7 @@ export class ProductsService {
   loadProducts(){
     return this.http.get<Product[]>(this.baseUrl + "product/")
   }
+  AddProduct(product : any){
+    return this.http.post(this.baseUrl + "product/", product)
+  }
 }
