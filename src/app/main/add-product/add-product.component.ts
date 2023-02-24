@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { Product } from 'src/app/models/products';
+
+import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -17,18 +19,20 @@ export class AddProductComponent implements OnInit {
     price : new FormControl('', [Validators.required]),
   });
 
-  constructor(private productsService : ProductsService) { }
+  constructor(private productsService : ProductsService,private router :Router) { }
+  filesToUpload : FileList | undefined;
+  formData = new FormData();
 
   ngOnInit(): void {
   }
 
   SaveProduct(){
-    let product = this.productForm.value;
-    this.productsService.AddProduct(product).pipe(take(1)).subscribe({
+    this.productsService.product = this.productForm.value;
+    this.productsService.AddProduct().pipe(take(1)).subscribe({
       next : response => {
-        console.log(response);
+        this.productsService.product.id = response;
+        this.router.navigate(["add-product-photos"], {queryParams: { id : response } })
       }
     })
   }
-
 }

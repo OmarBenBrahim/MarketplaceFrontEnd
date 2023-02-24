@@ -1,12 +1,9 @@
-import { Product } from "./products"
+import { Product } from "./product"
 
 export interface User{
     userName : string;
-    firstNme : string;
-    lastName : string;
-    country : string;
+    state : string;
     city : string;
     photoUrl : string;
     phoneNumber : string;
-    products : Product[] ;
 }

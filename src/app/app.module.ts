@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,19 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProductComponent } from './main/add-product/add-product.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { AddProductPhotosComponent } from './main/add-product-photos/add-product-photos.component';
+import { FileUploader, FileUploadModule } from 'ng2-file-upload';
+import { DetailProductComponent } from './main/detail-product/detail-product.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { telephoneFill, geoAltFill } from 'ngx-bootstrap-icons';
+import { EditProductComponent } from './main/edit-product/edit-product.component';
+
+const icons = {
+  telephoneFill,
+  geoAltFill
+};
+
 
 
 
@@ -27,18 +41,27 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     FilterComponent,
     LoginComponent,
     CreateAccountComponent,
-    AddProductComponent
+    AddProductComponent,
+    AddProductPhotosComponent,
+    DetailProductComponent,
+    EditProductComponent,
+    
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FileUploadModule,
+    NgxGalleryModule,
+    NgxBootstrapIconsModule.pick(icons)
+
     
   ],
   providers: [
-    {provide : HTTP_INTERCEPTORS, useClass : JwtInterceptor, multi:true}
+    {provide : HTTP_INTERCEPTORS, useClass : JwtInterceptor, multi:true},
   ],
   bootstrap: [AppComponent]
 })

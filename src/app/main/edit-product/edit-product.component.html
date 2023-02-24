@@ -1,0 +1,114 @@
+<div class="w-full max-w-xl mx-auto mt-20" *ngIf="productService.product" >
+    <form [formGroup]="productForm" (ngSubmit)="editProduct()" class="w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" autocomplete="off"  >
+      <div class="text-center">
+        <h1
+          class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-500 mb-10 mx-auto"
+        >
+          Edite Product
+        </h1>
+      </div>
+  
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full md:w-1/1 px-3 mb-6 md:mb-0">
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="grid-state"
+          >
+            Category
+          </label>
+          <div class="relative">
+            <select
+              class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              formControlName="categorie"
+              required
+            >
+              <option *ngFor="let categorie of productService.categories" [ngValue]="categorie.toLowerCase()">{{categorie}}</option>
+            </select>
+            <div
+              class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            >
+              <svg
+                class="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                />
+              </svg>
+            </div>
+          </div>
+          <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full md:w-1/1 px-3 mb-6 md:mb-0">
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="grid-first-name"
+          >
+            Product Title
+          </label>
+          <input
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            formControlName="title"
+            type="text"
+            required
+          />
+          <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full px-3">
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="grid-password"
+          >
+            Description
+          </label>
+          <textarea
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            formControlName="description"
+            cols="30"
+            rows="5"
+            required
+          >
+          </textarea>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-2">
+        <div class="w-full md:w-1/1 px-3 mb-6 md:mb-2">
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="grid-city"
+            
+          >
+            Price
+          </label>
+          <input
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            formControlName="price"
+            type="number"
+            required
+          />
+        </div>
+  
+        <div class="mx-3 w-full mt-6">
+          <p *ngIf="!productForm.valid" class="mb-3"> Complete the form to enable button. </p>
+          <button
+            class="text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            type="submit"
+            [ngClass]="{'bg-gray-500 hover:bg-gray-700' : !productForm.valid, 'bg-blue-500 hover:bg-blue-700' : productForm.valid}"
+            [disabled]="!productForm.valid"
+          >
+            Next =>
+          </button>
+        </div>
+      </div>
+      
+    </form>
+    <p class="text-center text-gray-500 text-xs">
+      &copy;2020 Acme Corp. All rights reserved.
+    </p>
+  </div>
+  

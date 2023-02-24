@@ -1,7 +1,7 @@
 
 <div *ngIf="product">
     <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-100 dark:border-gray-100 h-[400px] overflow-hidden relative">
-        <a href="#" class="h-[300px]">
+        <a class="h-[300px]" routerLink="/product-detail/{{product.id}}">
             <div *ngIf="product.photos[0]">
                 <img class="p-3 rounded-t-lg max-h-[300px] mx-auto" src="{{product.photos[0].url}}" alt="product image" />
             </div>
@@ -15,5 +15,5 @@
             <h5 class="text-3xl text-lime-50 font-semibold tracking-tight text-gray-900 dark:text-black">{{product.title }}</h5>
         </div>
     </div>
-</div> 
+</div>
 

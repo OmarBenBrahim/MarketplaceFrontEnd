@@ -26,6 +26,16 @@ export class AccountService {
       })
     )
   }
+  signup(modal : any){
+    return this.http.post<UserToken>(this.baseUrl + "account/register/", modal).pipe(
+      map(( response : UserToken) => {
+        var user = response ;
+        if(user){
+          this.setCurrentUser(user);
+        }
+      })
+    )
+  }
 
   setCurrentUser(user: UserToken){
     localStorage.setItem('user',JSON.stringify(user));

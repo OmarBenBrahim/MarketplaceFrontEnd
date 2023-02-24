@@ -6,18 +6,17 @@ import { AccountService } from '../services/account.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
-
+export class NotauthGuard implements CanActivate {
   constructor(private accountService : AccountService, private router : Router){}
 
   canActivate(): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
       map(user => {
-        if(user) {
+        if(!user) {
           return true
         }
         else{
-          this.router.navigate(['login'])
+          this.router.navigate(['products'])
           return false;
         }
       })
