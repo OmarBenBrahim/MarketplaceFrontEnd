@@ -32,6 +32,7 @@ export class EditProductComponent implements OnInit {
     this.routeSub = this.route.params.pipe(take(1)).subscribe(params => {
       this.ProductId = params['id'];
     });
+    
 
     if(!this.productService.product){
       this.loadProduct()
@@ -63,21 +64,21 @@ export class EditProductComponent implements OnInit {
     this.productService.EditeProduct(this.ProductId).pipe(take(1)).subscribe({
       next : response => {
         this.productService.product = response;
-        this.router.navigate(["product-detail/"+this.ProductId] )
+        this.router.navigate(["product-detail/"+this.ProductId])
       }
     })
   }
 
   remplirForm(){
     if(this.productService.product){
-      console.log(this.productService.product)
-      //this.productForm.controls['categorie'].patchValue(this.productService.product.categorieName.toLowerCase() , {onlySelf: true})
       this.productForm.setValue({
         categorie : this.productService.product.categorieName.toLowerCase(),
         title : this.productService.product.title,
         description: this.productService.product.description,
         price: this.productService.product.price.toString(),
       });
+    }else{
+      alert('remplir la formulaire');
     }
   }
 

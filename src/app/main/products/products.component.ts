@@ -13,25 +13,39 @@ export class ProductsComponent implements OnInit {
   products : Product[] = [];
   constructor(public productService : ProductsService,private route: ActivatedRoute) { }
   myproducts : string = 'false';
+ 
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        this.myproducts = params['myproducts']
-        this.loadProducts();
+
+        let productParams = {
+          minPrice : null,
+          maxPrice : null,
+          categorie : null,
+          state : null,
+        }
+
+        if(params['myproducts']) this.myproducts = params['myproducts'];
+        if(params['minPrice']) productParams.minPrice = params['minPrice'];
+        if(params['maxPrice']) productParams.maxPrice = params['maxPrice'];
+        if(params['categorie']) productParams.categorie = params['categorie'];
+        if(params['state']) productParams.state = params['state'];
+        this.loadProducts(productParams);
       });
   }
+  
 
-  loadProducts(){
-    
+  loadProducts(productParams :any){
     if(this.myproducts == 'true'){
       this.productService.loadMyProducts().pipe(take(1)).subscribe({
         next : products => {
           this.products = products;
+
         }
       })
     }
     else{
-      this.productService.loadProducts().pipe(take(1)).subscribe({
+      this.productService.loadProducts(productParams).pipe(take(1)).subscribe({
         next : products => {
           this.products = products;
         }
