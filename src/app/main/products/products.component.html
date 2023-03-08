@@ -3,10 +3,28 @@
        <app-filter></app-filter>
     </div>
     <div class="lg:col-span-9 md:col-span-12 col-span-12 p-3 ">
+        
         <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4">
-            <div *ngFor="let product of products">
+            <div *ngFor="let product of productService.products">
                 <app-product-card [product]="product"></app-product-card>
             </div>
         </div>
+        <div class="pt-5">
+            <div class="w-fit ml-auto mr-5">
+                <button
+                    *ngIf="productService.paginatition?.currentPage !== 1"
+                    (click)="loadPreviousPage()"
+                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    Previous
+                </button>
+                <button
+                    *ngIf="productService.paginatition?.currentPage != productService.paginatition?.totalPages"
+                    (click)="loadNextPage()"
+                    class="inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    Next
+                </button>
+            </div>
+        </div>
     </div>
+    
   </div>

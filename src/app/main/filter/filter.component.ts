@@ -11,7 +11,7 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
-
+  userName : string | undefined;
   productParams = new FormGroup({
     categorie : new FormControl(),
     state : new FormControl(),
@@ -23,6 +23,13 @@ export class FilterComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
+
+        if(params['userName']){
+          this.userName = params['userName']
+        }else{
+          this.userName = undefined;
+        }
+
         this.productParams.patchValue({
           categorie : (params['categorie']) ? this.productParams.value.categorie = params['categorie'] :'',
           state : (params['state']) ? this.productParams.value.state = params['state'] : '' ,
@@ -45,6 +52,9 @@ export class FilterComponent implements OnInit {
       if (obj[propName] === null || obj[propName] === undefined  || obj[propName] === '') {
         delete obj[propName];
       }
+    }
+    if(this.userName){
+      obj.userName = this.userName
     }
     return obj
   }

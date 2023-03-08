@@ -4,6 +4,7 @@ import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 import { map, of, take } from 'rxjs';
 import { ProductParams } from '../models/productParams';
+import { Pagination } from '../models/pagination';
 
 
 @Injectable({
@@ -11,8 +12,15 @@ import { ProductParams } from '../models/productParams';
 })
 export class ProductsService {
   baseUrl = environment.apiUrl;
+
+  products : Product[] = [];
+  paginatition : Pagination | undefined;
   productId : Number | undefined ;
   product : Product | any;
+  productParams : any;
+  pageNumber = 1;
+  pageSize = 8 ;
+
   categories = [
     "Image Son",
     "Ordinateurs portables",
@@ -29,18 +37,30 @@ export class ProductsService {
     
   constructor(private http: HttpClient) {}
 
-  loadProducts(productParams : ProductParams){
+  loadProducts(){
     let params = new HttpParams();
     
-    if(productParams.minPrice) params = params.append('minPrice' , productParams.minPrice);
-    if(productParams.maxPrice) params = params.append("maxPrice" , productParams.maxPrice);
-    if(productParams.categorie && productParams.categorie.length> 0 ) params = params.append("categorie" , productParams.categorie);
-    if(productParams.state && productParams.state.length> 0) params =  params.append("state" , productParams.state);
+    for( var key in this.productParams ) {
+      params = params.append(key ,  this.productParams[key] );
+    }
+    params = params.append("pageNumber", this.pageNumber);
+    params = params.append("pageSize", this.pageSize);
+    console.log(params);
 
-
-    return this.http.get<Product[]>(this.baseUrl + "product" , {params : params})
-
-
+    this.http.get<Product[]>(this.baseUrl + "product" , {observe : 'response' , params}).pipe(take(1)).subscribe({
+      next : response => {
+        if(response.body){
+          this.products = response.body;
+          console.log(this.products)
+        } 
+        const pagination = response.headers.get('Pagination');
+        if (pagination) {
+          this.paginatition = JSON.parse(pagination)
+          console.log(this.paginatition);
+        }
+      }
+    })
+    
   }
 
   loadMyProducts(){
@@ -58,5 +78,15 @@ export class ProductsService {
 
   EditeProduct(id : Number){
     return this.http.put<Number>(this.baseUrl + "product/"+id, this.product)
+  }
+
+  loadNextPage(){
+    this.pageNumber++;
+    this.loadProducts()
+  }
+
+  loadPreviousPage(){
+    this.pageNumber--;
+    this.loadProducts()
   }
 }
