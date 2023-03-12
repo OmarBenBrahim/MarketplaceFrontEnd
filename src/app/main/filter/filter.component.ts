@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 
 import { ProductParams } from 'src/app/models/productParams';
+import { CityList } from 'src/app/models/TunisaCity';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -12,13 +13,17 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class FilterComponent implements OnInit {
   userName : string | undefined;
+
+  cityList = new CityList();
+  tunisiaCity = this.cityList.TunisiaCity;
+  
   productParams = new FormGroup({
     categorie : new FormControl(),
     state : new FormControl(),
     minPrice : new FormControl(),
     maxPrice : new FormControl(),
   });
-  constructor(private router : Router, private route : ActivatedRoute) { }
+  constructor(private router : Router, private route : ActivatedRoute, public productService : ProductsService) { }
 
   ngOnInit(): void {
     this.route.queryParams

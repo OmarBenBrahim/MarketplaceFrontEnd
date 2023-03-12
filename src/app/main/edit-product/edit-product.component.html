@@ -94,15 +94,27 @@
         </div>
   
         <div class="mx-3 w-full mt-6">
-          <p *ngIf="!productForm.valid" class="mb-3"> Complete the form to enable button. </p>
+          <p *ngIf="!productForm.valid" class="mb-3 text-red-500"> Complete the form to enable button or Make Change. </p>
+          <p *ngIf="!checkChanges(productService.product,productForm.value)" class="mb-3 text-red-500"> you didn't make change you can go to edite photos. </p>
           <button
-            class="text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            class="text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mr-3"
             type="submit"
-            [ngClass]="{'bg-gray-500 hover:bg-gray-700' : !productForm.valid, 'bg-blue-500 hover:bg-blue-700' : productForm.valid}"
+            [ngClass]="{'bg-gray-500 hover:bg-gray-700' : !productForm.valid  , 'bg-blue-500 hover:bg-blue-700' : productForm.valid }"
             [disabled]="!productForm.valid"
+            *ngIf="checkChanges(productService.product,productForm.value)"
           >
-            Next =>
+            Save Change
           </button>
+          <button
+            class="text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mr-3"
+            type="submit"
+            [ngClass]="{'bg-gray-500 hover:bg-gray-700' : !productForm.valid  , 'bg-blue-500 hover:bg-blue-700' : productForm.valid }"
+            [disabled]="!productForm.valid"
+            *ngIf="!checkChanges(productService.product,productForm.value)"
+          >
+            Edit Product Photos
+          </button>
+          
         </div>
       </div>
       

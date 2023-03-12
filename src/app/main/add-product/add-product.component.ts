@@ -31,7 +31,7 @@ export class AddProductComponent implements OnInit {
     this.productsService.AddProduct().pipe(take(1)).subscribe({
       next : response => {
         this.productsService.product.id = response;
-        this.router.navigate(["add-product-photos"], {queryParams: { id : response } })
+        this.router.navigate([`add-product-photos/${response}`])
       }
     })
   }

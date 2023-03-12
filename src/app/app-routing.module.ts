@@ -13,7 +13,7 @@ import { MainComponent } from './main/main.component';
 const routes: Routes = [
   {path : 'products' , component : MainComponent, canActivate : [AuthGuard]},
   {path : 'add-product' , component : AddProductComponent, canActivate : [AuthGuard]},
-  {path : 'add-product-photos' , component : AddProductPhotosComponent, canActivate : [AuthGuard]},
+  {path : 'add-product-photos/:id' , component : AddProductPhotosComponent, canActivate : [AuthGuard]},
   {path : 'product-detail/:id' , component : DetailProductComponent, canActivate : [AuthGuard]},
   {path : 'edit-product/:id' , component : EditProductComponent, canActivate : [AuthGuard]},
   {path : "login" , component : LoginComponent, canActivate : [NotauthGuard] },

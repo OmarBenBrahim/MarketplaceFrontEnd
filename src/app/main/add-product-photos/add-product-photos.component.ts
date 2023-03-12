@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
+import { Photo } from 'src/app/models/photo';
 import { User } from 'src/app/models/user';
 import { UserToken } from 'src/app/models/userToken';
 import { AccountService } from 'src/app/services/account.service';
@@ -17,13 +19,27 @@ export class AddProductPhotosComponent implements OnInit {
   hasBaseDropZoneOver = false ;
   baseUrl = environment.apiUrl;
   user : UserToken | undefined;
-
-  constructor(private productService : ProductsService, private accountService : AccountService) {
+  ProductId : Number | undefined;
+  private routeSub: Subscription | undefined;
+  constructor(public productService : ProductsService, private accountService : AccountService,private route: ActivatedRoute) {
+    
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next : user => {
         if(user) this.user = user;
       }
     })
+    this.routeSub = this.route.params.pipe(take(1)).subscribe(params => {
+      this.ProductId = params['id'];
+      if (this.ProductId) {
+        this.productService.loadProduct(this.ProductId).pipe(take(1)).subscribe({
+          next: response => {
+            this.productService.product = response;
+            console.log(this.productService.product.photos)
+          }
+        })
+      }
+        
+    });
    }
 
   ngOnInit(): void {
@@ -36,7 +52,7 @@ export class AddProductPhotosComponent implements OnInit {
 
   initializeUploader(){
     this.uploader = new FileUploader({
-      url : this.baseUrl + 'product/addPhoto/' + this.productService.product.id,
+      url : this.baseUrl + 'product/addPhoto/' + this.ProductId,
       authToken : 'Bearer '+ this.user?.token,
       isHTML5 : true,
       allowedFileType : ['image'],
@@ -51,9 +67,15 @@ export class AddProductPhotosComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item , response, status , headers ) => {
       if(response){
-        console.log(response);
+        let photo = JSON.parse(response);
+        console.log(photo);
+        this.productService.product.photos.push(photo);
       }
     }
+  }
+
+  deletePhoto(photo : Photo){
+    this.productService.deletePhoto(photo);
   }
 
 

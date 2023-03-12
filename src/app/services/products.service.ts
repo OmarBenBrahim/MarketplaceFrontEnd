@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { map, of, take } from 'rxjs';
 import { ProductParams } from '../models/productParams';
 import { Pagination } from '../models/pagination';
+import { Photo } from '../models/photo';
 
 
 @Injectable({
@@ -30,7 +31,6 @@ export class ProductsService {
     "Accessoires informatiques et Gadgets",
     "Jeux vidéo et Consoles",
     "Tablettes",
-    "Other",
   ];
 
 
@@ -69,7 +69,7 @@ export class ProductsService {
 
   loadProduct(id : Number){
     if(this.product && this.product.id == id) return of(this.product); 
-    return this.http.get<Product>(this.baseUrl + "product/"+id)
+    return this.http.get<Product>(this.baseUrl + "product/"+id);
   }
 
   AddProduct(){
@@ -80,6 +80,15 @@ export class ProductsService {
     return this.http.put<Number>(this.baseUrl + "product/"+id, this.product)
   }
 
+  deletePhoto(photo : Photo){
+    
+    return this.http.delete(this.baseUrl+ 'product/delete-photo/'+ photo.id).pipe(take(1)).subscribe({
+      next : () =>{
+        this.product = this.localDeletePhotoById(this.product , photo.id);
+      }
+    })
+  }
+
   loadNextPage(){
     this.pageNumber++;
     this.loadProducts()
@@ -88,5 +97,16 @@ export class ProductsService {
   loadPreviousPage(){
     this.pageNumber--;
     this.loadProducts()
+  }
+
+
+  localDeletePhotoById(product : Product, id : number) {
+    const objWithIdIndex = product.photos.findIndex((photo) => photo.id === id);
+  
+    if (objWithIdIndex > -1) {
+      product.photos.splice(objWithIdIndex, 1);
+    }
+  
+    return product;
   }
 }

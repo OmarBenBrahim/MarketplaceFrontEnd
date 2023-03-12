@@ -15,6 +15,7 @@ import { ProductsService } from 'src/app/services/products.service';
 export class EditProductComponent implements OnInit {
   private routeSub: Subscription | undefined;
   ProductId : Number | undefined;
+  ProductFormInitial : any;
 
   productForm = new FormGroup({
     categorie : new FormControl('', [Validators.required]),
@@ -58,15 +59,21 @@ export class EditProductComponent implements OnInit {
   }
 
   editProduct(){
-    this.productService.product = this.productForm.value;
-    console.log(this.productForm.value);
-    if(!this.ProductId) return;
-    this.productService.EditeProduct(this.ProductId).pipe(take(1)).subscribe({
-      next : response => {
-        this.productService.product = response;
-        this.router.navigate(["product-detail/"+this.ProductId])
-      }
-    })
+    let changed = this.checkChanges(this.productService.product, this.productForm.value)
+      if(changed){
+        this.productService.product = this.productForm.value;
+      
+      if(!this.ProductId) return;
+      this.productService.EditeProduct(this.ProductId).pipe(take(1)).subscribe({
+        next : response => {
+          this.productService.product = response;
+          this.router.navigate(['add-product-photos/'+this.ProductId]);
+        }
+      })
+    }else{
+      this.router.navigate(['add-product-photos/'+this.ProductId]);
+    }
+    
   }
 
   remplirForm(){
@@ -77,9 +84,19 @@ export class EditProductComponent implements OnInit {
         description: this.productService.product.description,
         price: this.productService.product.price.toString(),
       });
+      this.ProductFormInitial = this.productForm.value;
     }else{
       alert('remplir la formulaire');
     }
+  }
+
+  checkChanges(p1 : Product, p2 : any){
+    let test = false;
+    if(p1.categorieName != p2.categorie) test=true;
+    if(p1.title != p2.title) test=true;
+    if(p1.description != p2.description ) test=true;
+    if(p1.price != p2.price) test=true;
+    return test;
   }
 
 }
