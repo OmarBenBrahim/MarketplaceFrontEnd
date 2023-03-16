@@ -22,6 +22,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { telephoneFill, geoAltFill } from 'ngx-bootstrap-icons';
 import { EditProductComponent } from './main/edit-product/edit-product.component';
+import { ToastrModule } from 'ngx-toastr';
+import { ErrorInterceptorInterceptor } from './interceptors/error-interceptor.interceptor';
 
 const icons = {
   telephoneFill,
@@ -56,12 +58,14 @@ const icons = {
     ReactiveFormsModule,
     FileUploadModule,
     NgxGalleryModule,
-    NgxBootstrapIconsModule.pick(icons)
+    NgxBootstrapIconsModule.pick(icons),
+    ToastrModule.forRoot(),
 
     
   ],
   providers: [
-    {provide : HTTP_INTERCEPTORS, useClass : JwtInterceptor, multi:true},
+    { provide : HTTP_INTERCEPTORS, useClass : JwtInterceptor, multi:true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

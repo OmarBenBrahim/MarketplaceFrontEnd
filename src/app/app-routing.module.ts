@@ -11,14 +11,14 @@ import { EditProductComponent } from './main/edit-product/edit-product.component
 import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
-  {path : 'products' , component : MainComponent, canActivate : [AuthGuard]},
+  {path : 'products' , component : MainComponent},
   {path : 'add-product' , component : AddProductComponent, canActivate : [AuthGuard]},
   {path : 'add-product-photos/:id' , component : AddProductPhotosComponent, canActivate : [AuthGuard]},
-  {path : 'product-detail/:id' , component : DetailProductComponent, canActivate : [AuthGuard]},
+  {path : 'product-detail/:id' , component : DetailProductComponent},
   {path : 'edit-product/:id' , component : EditProductComponent, canActivate : [AuthGuard]},
   {path : "login" , component : LoginComponent, canActivate : [NotauthGuard] },
   {path : "signup" , component : CreateAccountComponent, canActivate : [NotauthGuard] },
-  {path : '**' , redirectTo :'login' }
+  {path : '**' , redirectTo :'products' }
 ];
 
 @NgModule({

@@ -28,8 +28,9 @@
           <span class="title-font font-medium text-2xl text-gray-900"
             >{{ product.price }} DT</span
           >
-          <button
-            class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded"
+          <div class="ml-auto flex">
+            <button
+            class="flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded"
             *ngIf="product.user.userName == (accountService.currentUser$| async)?.userName"
             (click)="editProduct()"
           >
@@ -56,6 +57,8 @@
               ></path>
             </svg>
           </button>
+          </div>
+          
         </div>
       </div>
       <div class="lg:w-3/12 w-full object-cover object-center mx-auto">
