@@ -28,7 +28,7 @@ export class FilterComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-
+        console.log(params);
         if(params['userName']){
           this.userName = params['userName']
         }else{
@@ -47,7 +47,7 @@ export class FilterComponent implements OnInit {
   ApplyFilter(){
     let prodParams = this.clean(this.productParams.value);
     this.router.navigate(
-      [`/products`] ,
+      [this.router.url.split('?')[0]] ,
       { queryParams : prodParams }
     )
   }

@@ -15,6 +15,7 @@ export class ProductsComponent implements OnInit {
   myproducts : string = 'false';
  
   ngOnInit(): void {
+    this.productService.productParams = undefined;
     this.route.queryParams
       .subscribe(params => {
         this.loadProducts(params);
@@ -22,6 +23,7 @@ export class ProductsComponent implements OnInit {
   }
   
   loadProducts(params :any){
+      
       this.productService.productParams = params;
       this.productService.loadProducts()
   }

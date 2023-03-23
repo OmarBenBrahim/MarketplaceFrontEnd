@@ -12,6 +12,7 @@ import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
   {path : 'products' , component : MainComponent},
+  {path : 'my-products' , component : MainComponent},
   {path : 'add-product' , component : AddProductComponent, canActivate : [AuthGuard]},
   {path : 'add-product-photos/:id' , component : AddProductPhotosComponent, canActivate : [AuthGuard]},
   {path : 'product-detail/:id' , component : DetailProductComponent},

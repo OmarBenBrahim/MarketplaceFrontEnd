@@ -44,9 +44,10 @@
         <li>
           <a
             href="#"
-            class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
             aria-current="page"
             [routerLink]="['/products']"
+            routerLinkActive="md:text-blue-700"
             >Home</a
           >
         </li>
@@ -54,8 +55,10 @@
         <li>
           <a
             class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-            [routerLink]="['/products']"
+            [routerLink]="['/my-products']"
             [queryParams]="{ userName: (accountService.currentUser$ | async)?.userName }"
+            routerLinkActive="md:text-blue-700"
+
           >
             My Products
           </a>
@@ -65,6 +68,7 @@
             href="#"
             class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
             routerLink="/add-product"
+            routerLinkActive="md:text-blue-700"
             >Add Product</a
           >
         </li>
@@ -73,6 +77,7 @@
             href="#"
             class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
             (click)="logout()"
+            routerLinkActive="md:text-blue-700"
             >Logout</a
           >
         </li>
@@ -87,6 +92,7 @@
       href="#"
       class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
       routerLink="/login"
+      routerLinkActive="md:text-blue-700"
       >Login</a
     >
     </div>

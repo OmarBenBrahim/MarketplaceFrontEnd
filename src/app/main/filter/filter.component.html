@@ -43,8 +43,8 @@
       formControlName="categorie"
       class="block appearance-none w-full bg-gray-200 border-2 border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
     >
-      <option value=''>Select Categorie ...</option>
-      <option *ngFor="let categorie of productService.categories">{{categorie}}</option>
+      <option value=''>All Categorie ...</option>
+      <option *ngFor="let categorie of productService.categories" value="{{categorie}}">{{categorie}}</option>
     </select>
   </div>
   <div class="">
@@ -54,8 +54,8 @@
       formControlName="state"
       class="block w-full appearance-none bg-gray-200 border-2 border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
     >
-      <option value=''>State ...</option>
-      <option *ngFor="let city of tunisiaCity">{{city}}</option>
+      <option value=''>All State ...</option>
+      <option *ngFor="let city of tunisiaCity" value="{{city}}">{{city}}</option>
 
     </select>
   </div>
